@@ -23,7 +23,7 @@ def import_csv_as_adjacency_dict(path: str) -> OrderedDict:
         # this operation is equivalent to flatten.distinct in scala
         set_of_nodes = set(itertools.chain.from_iterable(edges))
 
-        data = OrderedDict({node: set() for node in set_of_nodes})
+        data = OrderedDict({node: set() for node in sorted(list(set_of_nodes))})
 
         for edge in edges:
             data[edge[0]].add(edge[1])
@@ -39,13 +39,18 @@ def construct_adjacency_matrix_from_dict(data: OrderedDict) -> np.ndarray:
     :return: np.ndarray: adjacency matrix
     """
     arr = np.zeros((len(data), len(data)))
-
-    for i, (node_from, lst) in enumerate(data.items()):
+    nodes = [k for k in data.keys()]
+    for i, (_, lst) in enumerate(data.items()):
         n_outgoing_edges = len(lst)
-        for j, node_to in enumerate(lst):
+        for node_to in lst:
+            j = nodes.index(node_to)
             arr[j][i] = 1 / n_outgoing_edges
 
     return arr
+
+
+def import_csv_as_adjacency_matrix(path: str) -> np.ndarray:
+    return construct_adjacency_matrix_from_dict(import_csv_as_adjacency_dict(path))
 
 
 if __name__ == '__main__':
