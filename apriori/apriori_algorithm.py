@@ -60,7 +60,7 @@ class Apriori:
         """
         candidates_count = {frozenset(c): 0 for c in candidates}
         for basket in self.baskets:
-            for subset in getSubsets(basket, self.k):
+            for subset in get_subsets(basket, self.k):
                 if subset in candidates_count:
                     candidates_count[subset] += 1
 
@@ -99,7 +99,7 @@ class Apriori:
 
 
 if __name__ == "__main__":
-    baskets = generateDocuments()
+    baskets = generate_documents()
 
     print("BASKETS")
     for basket in baskets:

@@ -10,12 +10,12 @@ testdata = [
 
 
 @pytest.mark.parametrize("k,support,bucket,expected", testdata)
-def test_apriori(data, k, support, bucket, expected):
-    runner = Apriori(baskets=data, k=k, support_threshold=support)
+def test_apriori(data_apriori, k, support, bucket, expected):
+    runner = Apriori(baskets=data_apriori, k=k, support_threshold=support)
     assert set(runner.get_frequent_sets()) == set(expected)
 
 
 @pytest.mark.parametrize("k,support,bucket,expected", testdata)
-def test_pcy(data, k, support, bucket, expected):
-    runner = PCY(baskets=data, k=k, support_threshold=support, bucket_size=bucket)
+def test_pcy(data_apriori, k, support, bucket, expected):
+    runner = PCY(baskets=data_apriori, k=k, support_threshold=support, bucket_size=bucket)
     assert set(runner.get_frequent_sets()) == set(expected)

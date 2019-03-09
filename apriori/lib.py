@@ -1,7 +1,7 @@
 from sortedcontainers import SortedSet
 
 
-def getSubsets(set1: set, k: int) -> SortedSet:
+def get_subsets(set1: set, k: int) -> SortedSet:
     """
     Get the subsets from your basket.
     """
@@ -22,7 +22,7 @@ def getSubsets(set1: set, k: int) -> SortedSet:
     return result
 
 
-def splitDocuments(documents: list) -> list:
+def split_documents(documents: list) -> list:
     """
     Split the collection of documents into buckets.
 
@@ -33,14 +33,14 @@ def splitDocuments(documents: list) -> list:
     return [set(document.lower().split(" ")) for document in documents]
 
 
-def generateDocuments() -> list:
+def generate_documents() -> list:
     """
     Generate a collection of documents to play around with.
 
     :return: a collection of documents
     """
 
-    return splitDocuments([
+    return split_documents([
         "Cat and dog bites",
         "Yahoo news claims a cat mated with a dog and produced viable offspring",
         "Cat killer likely is a big dog",

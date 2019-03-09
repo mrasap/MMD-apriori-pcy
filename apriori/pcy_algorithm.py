@@ -57,7 +57,7 @@ class PCY(Apriori):
         candidates_count = {frozenset(c): 0 for c in candidates}
 
         for basket in self.baskets:
-            subsets = getSubsets(basket, self.k)
+            subsets = get_subsets(basket, self.k)
             for i, s1 in enumerate(subsets):
                 if s1 in candidates_count:
                     candidates_count[s1] += 1
@@ -85,7 +85,7 @@ class PCY(Apriori):
 
 
 if __name__ == "__main__":
-    baskets = generateDocuments()
+    baskets = generate_documents()
 
     runner = PCY(baskets=baskets, k=K, support_threshold=SUPPORT_THRESHOLD,
         bucket_size=BUCKET_SIZE)
