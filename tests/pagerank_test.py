@@ -7,6 +7,7 @@ import os
 dirname = os.path.dirname(os.path.abspath(__file__))
 example1 = os.path.join(dirname, '../data/pagerank/example1.csv')
 
+
 def test_import_data():
     expected = OrderedDict([('C', {'A'}), ('B', {'D', 'A'}), ('D', {'B', 'C'}), ('A', {'D', 'C'})])
     result = lib.import_csv_as_adjacency_dict(example1)

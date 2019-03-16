@@ -7,6 +7,7 @@ import os
 dirname = os.path.dirname(os.path.abspath(__file__))
 example1 = os.path.join(dirname, '../data/pagerank/example1.csv')
 
+
 @pytest.fixture(scope='module')
 def data_apriori():
     baskets = generate_documents()
