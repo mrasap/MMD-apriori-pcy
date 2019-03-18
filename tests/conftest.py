@@ -2,7 +2,7 @@ import pytest
 from apriori.lib import generate_documents
 from pagerank.lib import *
 from pagerank.pagerank_algorithm import *
-from clustering.hierarchical_cluster_algorithm import *
+from clustering.kmeans_cluster_algorithm import *
 import os
 
 dirname = os.path.dirname(os.path.abspath(__file__))
@@ -31,8 +31,19 @@ def pagerank_runner():
     yield runner
 
 
-@pytest.fixture(scope='function')
-def cluster_runner():
+@pytest.fixture(scope='module')
+def cluster_data():
     data = import_txt_as_matrix(cluster_test_example1)
-    runner = HierarchicalClustering(data)
+    yield data
+
+
+@pytest.fixture(scope='function')
+def hierarchical_cluster_runner(cluster_data):
+    runner = HierarchicalClustering(cluster_data)
+    yield runner
+
+
+@pytest.fixture(scope='function')
+def kmeans_cluster_runner(cluster_data):
+    runner = KMeansClustering(cluster_data)
     yield runner

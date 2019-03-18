@@ -24,4 +24,15 @@ Chapter 6 - Frequent Itemsets
 
 ###### Youtube lectures
 a-priori: https://www.youtube.com/watch?v=n2E4Tzt_Teo   
-PCY: https://www.youtube.com/watch?v=AGAkNiQnbjY
+PCY: https://www.youtube.com/watch?v=AGAkNiQnbjY   
+
+
+#### Clustering
+
+Chapter 7 - Clustering
+
+###### Youtube lectures
+hierarchical: https://www.youtube.com/watch?v=rg2cjfMsCk4   
+kmeans: https://www.youtube.com/watch?v=RD0nNK51Fp8   
+BFR: https://www.youtube.com/watch?v=NP1Zk8MY08k   
+CURE: https://www.youtube.com/watch?v=JrOJspZ1CUw   

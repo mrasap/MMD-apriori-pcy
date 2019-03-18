@@ -29,9 +29,23 @@ class HierarchicalClustering(object):
     Create a hierarchical clustering of the datapoints.
     """
 
-    def __init__(self, array: np.ndarray):
+    def __init__(self, array: np.ndarray, k: int = 3):
+        """
+        Initialize a hierarchical clustering algorithm
+
+        :param array: a numpy array, where rows are the data points and cols are the dimensions
+        :param k: the amount of clusters that should be calculated.
+        """
         self.points = array
-        self.clusters = [HierarchicalCluster(self.points[i][:]) for i in range(self.points.shape[0])]
+        self.clusters = None
+        self.k = k
+        self.initialize_clusters()
+
+    def initialize_clusters(self):
+        """
+        Initialize the starting clusters. This is a separate function to allow it to be overwritten.
+        """
+        self.clusters = [HierarchicalCluster(self.points[i, :]) for i in range(self.points.shape[0])]
 
     def plot(self):
         """
@@ -48,16 +62,17 @@ class HierarchicalClustering(object):
             plt.scatter(centroid[0], centroid[1], c=color, marker="X")
         plt.show()
 
-    def compute_clusters(self, k: int) -> list:
+    def compute_clusters(self, k: int = None) -> list:
         """
         Compute the k clusters of the data.
 
-        :param k: the amount of clusters that should be calculated.
         :return: list[Cluster]: the k clusters.
         """
-        assert k <= self.points.shape[0]
+        assert k is None or k <= self.points.shape[0]
+        if k is not None:
+            self.k = k
 
-        while len(self.clusters) != k:
+        while len(self.clusters) != self.k:
             # find closest pair
             min_distance = sys.maxsize
             a = b = None
@@ -82,7 +97,7 @@ class HierarchicalClustering(object):
 if __name__ == '__main__':
     path = os.path.join(dirname, '../data/clustering/example1.txt')
     data = import_txt_as_matrix(path)
-    # data = data[:100, :]
+    data = data[:100, :]
     runner = HierarchicalClustering(data)
     runner.compute_clusters(3)
     runner.plot()
