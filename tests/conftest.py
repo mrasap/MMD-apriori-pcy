@@ -2,12 +2,12 @@ import pytest
 from apriori.lib import generate_documents
 from pagerank.lib import *
 from pagerank.pagerank_algorithm import *
-from cluster.cluster_algorithm import *
+from clustering.hierarchical_cluster_algorithm import *
 import os
 
 dirname = os.path.dirname(os.path.abspath(__file__))
 pagerank_example1 = os.path.join(dirname, '../data/pagerank/example1.csv')
-cluster_test_example1 = os.path.join(dirname, '../data/cluster/test_example1.txt')
+cluster_test_example1 = os.path.join(dirname, '../data/clustering/test_example1.txt')
 
 
 @pytest.fixture(scope='module')

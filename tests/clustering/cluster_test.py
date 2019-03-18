@@ -1,6 +1,6 @@
 import pytest
 
-from cluster.cluster_algorithm import *
+from clustering.hierarchical_cluster_algorithm import *
 
 
 def test_hierarchical_cluster_init(cluster_runner):

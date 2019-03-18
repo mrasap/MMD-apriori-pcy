@@ -1,10 +1,10 @@
-from cluster.cluster_algorithm import *
+from clustering.hierarchical_cluster_algorithm import *
 import os
 import pytest
 
 dirname = os.path.dirname(os.path.abspath(__file__))
 
-example1 = os.path.join(dirname, '../../data/cluster/test_example1.txt')
+example1 = os.path.join(dirname, '../../data/clustering/test_example1.txt')
 example1_expected = np.array([
         [1.9957, 2.7363],
         [1.5573, 2.4469],

@@ -1,4 +1,5 @@
-from cluster.lib import *
+from clustering.cluster import Cluster
+from clustering.lib import *
 import sys
 import os
 from itertools import cycle
@@ -6,36 +7,17 @@ from itertools import cycle
 dirname = os.path.dirname(os.path.abspath(__file__))
 
 
-class Cluster(object):
-    """
-    Represents a cluster of data points and its corresponding centroid
-    """
+class HierarchicalCluster(Cluster):
 
     def __init__(self, array):
-        self.points = array
-        self.centroid = None
+        super().__init__(array)
         self.compute_centroid()
-
-    def compute_centroid(self):
-        """
-        Calculate the centroid of the data
-        """
-        self.centroid = mean_vector_of_matrix(self.points)
-
-    def euclidean_distance(self, other) -> int:
-        """
-        Calculate euclidean distance between the centroids of the two clusters
-
-        :param other: the other cluster
-        :return: euclidean distance
-        """
-        return euclidean_distance_between_vectors(self.centroid, other.centroid)
 
     def merge(self, other):
         """
-        Merge the other cluster with this one.
+        Merge the other clustering with this one.
 
-        :param other: Cluster: the cluster that should be merged with this one
+        :param other: Cluster: the clustering that should be merged with this one
         """
         self.points = np.vstack((self.points, other.points))
         # TODO: add weighted means instead of recomputing
@@ -49,7 +31,7 @@ class HierarchicalClustering(object):
 
     def __init__(self, array: np.ndarray):
         self.points = array
-        self.clusters = [Cluster(self.points[i][:]) for i in range(self.points.shape[0])]
+        self.clusters = [HierarchicalCluster(self.points[i][:]) for i in range(self.points.shape[0])]
 
     def plot(self):
         """
@@ -62,7 +44,7 @@ class HierarchicalClustering(object):
             points = cluster.points if len(cluster.points.shape) > 1 else np.array([cluster.points])
             plt.scatter(points[:, 0], points[:, 1], c=color, marker=".")
 
-            centroid = cluster.centroid
+            centroid = cluster.get_centroid()
             plt.scatter(centroid[0], centroid[1], c=color, marker="X")
         plt.show()
 
@@ -85,7 +67,7 @@ class HierarchicalClustering(object):
             # brute force
             for i, c1 in enumerate(self.clusters):
                 for c2 in self.clusters[i + 1:]:
-                    distance = c1.euclidean_distance(c2)
+                    distance = c1.euclidean_distance(c2.get_centroid())
                     if min_distance > distance:
                         min_distance = distance
                         (a, b) = (c1, c2)
@@ -97,14 +79,8 @@ class HierarchicalClustering(object):
         return self.clusters
 
 
-class KMeansClustering(HierarchicalClustering):
-
-    def compute_clusters(self, k: int):
-        pass
-
-
 if __name__ == '__main__':
-    path = os.path.join(dirname, '../data/cluster/example1.txt')
+    path = os.path.join(dirname, '../data/clustering/example1.txt')
     data = import_txt_as_matrix(path)
     # data = data[:100, :]
     runner = HierarchicalClustering(data)
